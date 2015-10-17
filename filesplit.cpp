@@ -7,7 +7,7 @@
 int MAX_CHARACTERS_INPUT = 30000; // max number of characters allowed in buffer
 int SEPERATE = 200; // amount of characters to put in each file
 
-void readTo(const char*, int, int);
+std::string readTo(const char*, int, int);
 
 int main(int argc, char *argv[]){
   char file[256]; // hold the filename
@@ -23,23 +23,45 @@ int main(int argc, char *argv[]){
   if(ifs.is_open()){
     ifs.seekg (0, ifs.end); // set the pointer of ifs to the end of the file
     int filelen = ifs.tellg(); // store the position of eof() in filelen
+    int numfiles = (filelen/200); // calculates how many files will be split
     ifs.seekg (0, ifs.beg); // set the pointer of ifs back to the start
 
     if(filelen <= MAX_CHARACTERS_INPUT){
       char* buffer = new char[filelen]; // make a buffer using dynamic memory
       std::cout << "Reading file\n"; // update the user as-to what is happening
       ifs.read(buffer, filelen); // read the file into the buffer
+
+      std::ofstream ofs;
+      std::cout << "Seperating into " << numfiles << " files\n";
+
+      for(int i = 0; i < numfiles; ++i){
+        int begin = (i*SEPERATE);
+        int end = begin+SEPERATE;
+        std::string filename = "out";
+        filename+=i; // add number to the name of the output file
+        ofs.open(filename.c_str());
+        ofs << readTo(buffer, begin, end);
+        ofs.close();
+      }
+
+      delete[] buffer; // free the memory from the read file
     }else{ // the file is too big, output a message saying so
       std::cout << "Input exceeds limit\n";
       std::cout << "MAX: " << MAX_CHARACTERS_INPUT << std::endl;
       std::cout << "GIVEN: " << filelen << std::endl;
     }
-  }else{
+  }else{ // if there was a problem opening file, output error message
     std::cout << "Error opening file\n"; // if there is any problem opening
   }
   ifs.close(); // close the file!
+
+  std::cout << "Finished."
 }
 
-void readTo(const char* in, int start, int size){
-  for(int )
+std::string readTo(const char* in, int start, int size){
+  std::string result;
+  for(int i=start; i < start+size; ++i){
+    result+=in[i];
+  }
+  return result;
 }
