@@ -3,8 +3,7 @@
 #include <cstring>
 #include <string>
 #include <iostream>
-#include <cassert>
-#include <sstream>
+
 
 int MAX_CHARACTERS_INPUT = 30000; // max number of characters allowed in buffer
 int SEPERATE = 200; // amount of characters to put in each file
