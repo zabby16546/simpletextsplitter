@@ -1,5 +1,5 @@
 # simpletextsplitter
-An extremely basic tool for splitting txt files into multiple txt files with a certain amount of characters on each file.
+An extremely basic tool for splitting txt files into multiple txt files with a certain amount of characters in each file. The number of characters is defined in a constant at the top of the code and can be easily modified. All the code is self contained in one *.cpp* file and can be modified and redestributed in whatever way you see fit.  
 
 Usage
 ====
@@ -11,3 +11,4 @@ You can also run it from a terminal:
 **or**
 `./simpletextsplitter`
 *if you don't include a filename, it will ask you for one inside the program*
+
